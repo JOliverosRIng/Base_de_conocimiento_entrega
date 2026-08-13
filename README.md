@@ -1,43 +1,40 @@
-# Base de Conocimiento — CODEFEST AD ASTRA 2026 (Etapa 1)
+# Encoder Multilingual
 
-Pipeline de preprocesamiento y segmentación (chunking) del corpus documental
-del reto, orientado a la construcción de una base de conocimiento vectorial
-para recuperación de información en el dominio aeroespacial.
+Esta carpeta debe contener la base vectorial (índice FAISS) y los metadatos
+de los chunks para que `generador.py` funcione correctamente.
 
-## Descripción
+## Archivos requeridos
 
-El sistema convierte documentos crudos de múltiples formatos en fragmentos
-(chunks) limpios y uniformes, listos para ser vectorizados e indexados.
-Sigue un patrón de dos capas: lectores por fuente (extracción) + un
-procesador de texto reutilizable (limpieza, segmentación y validación).
+| Archivo          | Descripción                                                    |
+|------------------|----------------------------------------------------------------|
+| `index.faiss`    | Índice FAISS con los vectores de los documentos.               |
+| `metadata.jsonl` | Metadatos de los chunks (cada línea corresponde a un vector).  |
 
-## Formatos soportados
+> **Importante:** el archivo debe llamarse exactamente `index.faiss`
+> (no `indice.faiss`), ya que es el nombre que referencia el script en
+> `generador.py`.
 
-- **PDF** — extracción de texto con OCR de respaldo (Tesseract)
-- **JSON** — extracción de campos de texto y aplanado de estructura
-- **CSV / XLSX** — cada fila como unidad, con control de tokens
-- **PBF** — mapas vectoriales (Mapbox Vector Tiles) a texto
-- **Imágenes** — OCR con filtro de confianza
-- **TXT** — texto plano
+## Cómo descargar los archivos
 
-## Características
+1. Abre el siguiente enlace de Google Drive:
 
-- Segmentación por oraciones con ventana deslizante (250 palabras / 250
-  tokens) y solapamiento configurable, sin cortar oraciones.
-- Limpieza de ruido (marcadores de página, boilerplate, puntos de relleno).
-- Detección automática de idioma (es / en / pt).
-- Identificadores reproducibles (doc_id por hash de ruta relativa).
-- Validación de integridad y recuperación de texto perdido entre chunks.
-- Procesamiento por lotes con paralelismo y reanudación (resumen + changelog).
+   https://drive.google.com/drive/folders/1c3tGyRZD3_xiCGm_7IodyY2H409THRyR
 
-## Requisitos
+2. Dentro de la carpeta, selecciona `index.faiss` y `metadata.jsonl`.
 
-- Python 3.12
-- Tesseract OCR (binario del sistema)
-- Ver `requirements.txt` para las dependencias de Python
+3. Haz clic derecho (o usa el menú de tres puntos) y elige **Descargar**.
 
-## Uso
+4. Mueve (o guarda) ambos archivos en esta misma carpeta:
 
-Ejecutar el notebook orquestador (`scripts/preprocessing/orquestador.ipynb`),
-que recorre el corpus, delega cada archivo en su preprocesador y consolida
-los chunks en `output/metadata.json`.
+   ```
+   entrega/base_vectorial/encoder_multilingual/
+   ```
+
+Al finalizar, la carpeta debe quedar así:
+
+```
+base_vectorial/encoder_multilingual/
+├── index.faiss
+├── metadata.jsonl
+└── README.md
+```
