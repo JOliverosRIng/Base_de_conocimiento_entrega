@@ -110,11 +110,11 @@ RUTA_RESULTADOS = 'entrega/resultados.jsonl'
 ```
 .
 ├── README.md
+├── requirements.txt
 └── entrega/
     ├── generador.py
     ├── consultas.jsonl
     ├── resultados.jsonl
-    ├── requirements.txt
     ├── Informe Tecnico.pdf
     └── base_vectorial/
         └── encoder_multilingual/
