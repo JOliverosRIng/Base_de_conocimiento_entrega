@@ -14,11 +14,12 @@ El archivo `consultas.jsonl` debe contener una consulta en formato JSON por cada
 
 El formato requerido es:
 
-````json
+```json
 {"id":"q001","query":"pregunta-1"}
 {"id":"q002","query":"pregunta-2"}
 ...
 {"id":"qn","query":"pregunta-n"}
+```
 
 ## Instalación
 
@@ -30,7 +31,7 @@ source venv/bin/activate        # Linux / macOS
 # venv\Scripts\activate         # Windows
 
 pip install -r entrega/requirements.txt
-````
+```
 
 Dependencias instaladas:
 
