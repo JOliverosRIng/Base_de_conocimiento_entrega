@@ -8,6 +8,18 @@ un índice FAISS y el encoder `intfloat/multilingual-e5-base`.
 
 - Python 3.9 o superior.
 
+### Formato de `consultas.jsonl`
+
+El archivo `consultas.jsonl` debe contener una consulta en formato JSON por cada línea. Cada objeto debe incluir los campos `id` y `query`.
+
+El formato requerido es:
+
+````json
+{"id":"q001","query":"pregunta-1"}
+{"id":"q002","query":"pregunta-2"}
+...
+{"id":"qn","query":"pregunta-n"}
+
 ## Instalación
 
 Crea un entorno virtual e instala las dependencias:
@@ -18,14 +30,14 @@ source venv/bin/activate        # Linux / macOS
 # venv\Scripts\activate         # Windows
 
 pip install -r entrega/requirements.txt
-```
+````
 
 Dependencias instaladas:
 
-| Paquete              | Uso                                  |
-|----------------------|--------------------------------------|
-| `faiss-cpu`          | Índice FAISS y búsqueda de vectores. |
-| `numpy`              | Manejo de arrays y embeddings.        |
+| Paquete                 | Uso                                       |
+| ----------------------- | ----------------------------------------- |
+| `faiss-cpu`             | Índice FAISS y búsqueda de vectores.      |
+| `numpy`                 | Manejo de arrays y embeddings.            |
 | `sentence-transformers` | Carga del encoder `multilingual-e5-base`. |
 
 ## Descargar la base vectorial
@@ -33,7 +45,7 @@ Dependencias instaladas:
 El script necesita dos archivos que **no están en el repositorio**:
 
 | Archivo          | Descripción                                                   |
-|------------------|---------------------------------------------------------------|
+| ---------------- | ------------------------------------------------------------- |
 | `index.faiss`    | Índice FAISS con los vectores de los documentos.              |
 | `metadata.jsonl` | Metadatos de los chunks (cada línea corresponde a un vector). |
 

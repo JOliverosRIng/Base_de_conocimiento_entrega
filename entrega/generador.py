@@ -220,23 +220,48 @@ buscador = FAISSQuery(
 with open(RUTA_CONSULTAS, "r", encoding="utf-8") as archivo_entrada, \
      open(RUTA_RESULTADOS, "w", encoding="utf-8") as archivo_salida:
 
-    for linea in archivo_entrada:
+    for numero_linea, linea in enumerate(archivo_entrada, start=1):
 
         # Ignorar líneas vacías
         if not linea.strip():
             continue
 
-        # Convertir la línea JSONL a diccionario
-        consulta = json.loads(linea)
+        # -----------------------------------------
+        # 1. Convertir línea JSONL
+        # -----------------------------------------
 
-        # Obtener información de la consulta
+        try:
+            consulta = json.loads(linea)
+        except json.JSONDecodeError:
+            print(
+                f"Línea {numero_linea}: "
+                "el formato no es JSON válido. Se omite."
+            )
+            continue
+
+        # -----------------------------------------
+        # 2. Validar estructura
+        # -----------------------------------------
+
+        if "id" not in consulta or "query" not in consulta:
+            print(
+                f"Línea {numero_linea}: "
+                "el formato no es el indicado. "
+                "Se requieren las llaves 'id' y 'query'."
+            )
+            continue
+
+        # -----------------------------------------
+        # 3. Obtener información de la consulta
+        # -----------------------------------------
+
         query_id = consulta["id"]
         query = consulta["query"]
 
         print(f"Procesando {query_id}: {query}")
 
         # -----------------------------------------
-        # 3. Realizar consulta en FAISS
+        # 4. Realizar consulta en FAISS
         # -----------------------------------------
 
         respuesta = buscador.consultar(
@@ -247,7 +272,7 @@ with open(RUTA_CONSULTAS, "r", encoding="utf-8") as archivo_entrada, \
         )
 
         # -----------------------------------------
-        # 4. Escribir resultado en JSONL
+        # 5. Escribir resultado en JSONL
         # -----------------------------------------
 
         archivo_salida.write(
