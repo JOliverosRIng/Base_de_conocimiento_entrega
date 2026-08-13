@@ -1,40 +1,110 @@
-# Encoder Multilingual
+# Base de Conocimiento — Encoder Multilingual
 
-Esta carpeta debe contener la base vectorial (índice FAISS) y los metadatos
-de los chunks para que `generador.py` funcione correctamente.
+Proyecto de búsqueda semántica sobre una base de conocimiento. Recupera los
+fragmentos (`chunks`) más relevantes para un conjunto de consultas mediante
+un índice FAISS y el encoder `intfloat/multilingual-e5-base`.
 
-## Archivos requeridos
+## Requisitos
 
-| Archivo          | Descripción                                                    |
-|------------------|----------------------------------------------------------------|
-| `index.faiss`    | Índice FAISS con los vectores de los documentos.               |
-| `metadata.jsonl` | Metadatos de los chunks (cada línea corresponde a un vector).  |
+- Python 3.9 o superior.
+
+## Instalación
+
+Crea un entorno virtual e instala las dependencias:
+
+```bash
+python -m venv venv
+source venv/bin/activate        # Linux / macOS
+# venv\Scripts\activate         # Windows
+
+pip install -r entrega/requirements.txt
+```
+
+Dependencias instaladas:
+
+| Paquete              | Uso                                  |
+|----------------------|--------------------------------------|
+| `faiss-cpu`          | Índice FAISS y búsqueda de vectores. |
+| `numpy`              | Manejo de arrays y embeddings.        |
+| `sentence-transformers` | Carga del encoder `multilingual-e5-base`. |
+
+## Descargar la base vectorial
+
+El script necesita dos archivos que **no están en el repositorio**:
+
+| Archivo          | Descripción                                                   |
+|------------------|---------------------------------------------------------------|
+| `index.faiss`    | Índice FAISS con los vectores de los documentos.              |
+| `metadata.jsonl` | Metadatos de los chunks (cada línea corresponde a un vector). |
 
 > **Importante:** el archivo debe llamarse exactamente `index.faiss`
-> (no `indice.faiss`), ya que es el nombre que referencia el script en
-> `generador.py`.
+> (no `indice.faiss`), ya que es el nombre que referencia `generador.py`.
 
-## Cómo descargar los archivos
+Pasos:
 
-1. Abre el siguiente enlace de Google Drive:
+1. Abre el enlace de Google Drive:
 
    https://drive.google.com/drive/folders/1c3tGyRZD3_xiCGm_7IodyY2H409THRyR
 
-2. Dentro de la carpeta, selecciona `index.faiss` y `metadata.jsonl`.
+2. Selecciona `index.faiss` y `metadata.jsonl`, haz clic derecho y elige
+   **Descargar**.
 
-3. Haz clic derecho (o usa el menú de tres puntos) y elige **Descargar**.
-
-4. Mueve (o guarda) ambos archivos en esta misma carpeta:
+3. Coloca ambos archivos en la carpeta:
 
    ```
    entrega/base_vectorial/encoder_multilingual/
    ```
 
-Al finalizar, la carpeta debe quedar así:
+La carpeta debe quedar así:
 
 ```
-base_vectorial/encoder_multilingual/
+entrega/base_vectorial/encoder_multilingual/
 ├── index.faiss
-├── metadata.jsonl
-└── README.md
+└── metadata.jsonl
+```
+
+## Ejecutar el generador
+
+El script `generador.py` lee las consultas de `entrega/consultas.jsonl`,
+realiza la búsqueda en FAISS y escribe los resultados en
+`entrega/resultados.jsonl`.
+
+Desde la raíz del proyecto:
+
+```bash
+python entrega/generador.py
+```
+
+Al terminar, los resultados quedan en `entrega/resultados.jsonl`.
+
+### Nota sobre las rutas
+
+`generador.py` define rutas relativas con el prefijo
+`scripts/preprocessing/entrega/`. Si al ejecutarlo obtienes un error de
+archivo no encontrado (`FileNotFoundError`), ajusta las constantes al inicio
+del bloque de ejecución (líneas ~198-202) a la estructura de tu equipo, por
+ejemplo:
+
+```python
+RUTA_INDEX     = 'entrega/base_vectorial/encoder_multilingual/index.faiss'
+RUTA_METADATA  = 'entrega/base_vectorial/encoder_multilingual/metadata.jsonl'
+RUTA_CONSULTAS = 'entrega/consultas.jsonl'
+RUTA_RESULTADOS = 'entrega/resultados.jsonl'
+```
+
+## Estructura del proyecto
+
+```
+.
+├── README.md
+└── entrega/
+    ├── generador.py
+    ├── consultas.jsonl
+    ├── resultados.jsonl
+    ├── requirements.txt
+    ├── Informe Tecnico.pdf
+    └── base_vectorial/
+        └── encoder_multilingual/
+            ├── index.faiss
+            └── metadata.jsonl
 ```
