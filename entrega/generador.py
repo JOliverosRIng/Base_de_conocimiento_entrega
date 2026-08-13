@@ -195,11 +195,11 @@ class FAISSQuery:
 
         return respuesta
 
-RUTA_INDEX = 'scripts/preprocessing/entrega/base_vectorial/encoder_multilingual/index.faiss'
-RUTA_METADATA = 'scripts/preprocessing/entrega/base_vectorial/encoder_multilingual/metadata.jsonl'
+RUTA_INDEX = 'entrega/base_vectorial/encoder_multilingual/index.faiss'
+RUTA_METADATA = 'entrega/base_vectorial/encoder_multilingual/metadata.jsonl'
 
-RUTA_CONSULTAS = 'scripts/preprocessing/entrega/consultas.jsonl'
-RUTA_RESULTADOS = 'scripts/preprocessing/entrega/resultados.jsonl'
+RUTA_CONSULTAS = 'entrega/consultas.jsonl'
+RUTA_RESULTADOS = 'entrega/resultados.jsonl'
 
 
 # -----------------------------------------
