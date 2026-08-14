@@ -1,8 +1,15 @@
-# Base de Conocimiento — Encoder Multilingual
+# Base de Conocimiento: Encoder Multilingüe
 
 Proyecto de búsqueda semántica sobre una base de conocimiento. Recupera los
 fragmentos (`chunks`) más relevantes para un conjunto de consultas mediante
 un índice FAISS y el encoder `intfloat/multilingual-e5-base`.
+
+## Equipo: Código Harpía
+### Miembros:
+- Janeth Oliveros Ramirez
+- Edgard Leonardo Castañeda García
+- Javier Alejandro Penagos Hernández
+- Nicolás Felipe Corredor Cortés
 
 ## Requisitos
 
