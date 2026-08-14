@@ -2,7 +2,7 @@ import json
 import faiss
 import numpy as np
 from sentence_transformers import SentenceTransformer
-
+from tqdm import tqdm
 
 class FAISSQuery:
 
@@ -220,7 +220,7 @@ buscador = FAISSQuery(
 with open(RUTA_CONSULTAS, "r", encoding="utf-8") as archivo_entrada, \
      open(RUTA_RESULTADOS, "w", encoding="utf-8") as archivo_salida:
 
-    for numero_linea, linea in enumerate(archivo_entrada, start=1):
+    for numero_linea, linea in enumerate(tqdm(archivo_entrada, desc="Procesando consultas",unit="Consulta", total=len(archivo_entrada)), start=1):
 
         # Ignorar líneas vacías
         if not linea.strip():
@@ -233,10 +233,10 @@ with open(RUTA_CONSULTAS, "r", encoding="utf-8") as archivo_entrada, \
         try:
             consulta = json.loads(linea)
         except json.JSONDecodeError:
-            print(
-                f"Línea {numero_linea}: "
-                "el formato no es JSON válido. Se omite."
-            )
+            #print(
+            #    f"Línea {numero_linea}: "
+            #    "el formato no es JSON válido. Se omite."
+            #)
             continue
 
         # -----------------------------------------
@@ -244,11 +244,11 @@ with open(RUTA_CONSULTAS, "r", encoding="utf-8") as archivo_entrada, \
         # -----------------------------------------
 
         if "id" not in consulta or "query" not in consulta:
-            print(
-                f"Línea {numero_linea}: "
-                "el formato no es el indicado. "
-                "Se requieren las llaves 'id' y 'query'."
-            )
+            #print(
+            #    f"Línea {numero_linea}: "
+            #    "el formato no es el indicado. "
+            #    "Se requieren las llaves 'id' y 'query'."
+            #)
             continue
 
         # -----------------------------------------
@@ -258,7 +258,7 @@ with open(RUTA_CONSULTAS, "r", encoding="utf-8") as archivo_entrada, \
         query_id = consulta["id"]
         query = consulta["query"]
 
-        print(f"Procesando {query_id}: {query}")
+        #print(f"Procesando {query_id}: {query}")
 
         # -----------------------------------------
         # 4. Realizar consulta en FAISS
@@ -283,3 +283,4 @@ with open(RUTA_CONSULTAS, "r", encoding="utf-8") as archivo_entrada, \
         )
 
 print(f"\nResultados guardados en: {RUTA_RESULTADOS}")
+
