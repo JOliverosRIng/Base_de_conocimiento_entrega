@@ -195,11 +195,13 @@ class FAISSQuery:
 
         return respuesta
 
+
 RUTA_INDEX = 'entrega/base_vectorial/encoder_multilingual/index.faiss'
 RUTA_METADATA = 'entrega/base_vectorial/encoder_multilingual/metadata.jsonl'
 
 RUTA_CONSULTAS = 'entrega/consultas.jsonl'
 RUTA_RESULTADOS = 'entrega/resultados.jsonl'
+
 
 
 # -----------------------------------------
@@ -257,7 +259,6 @@ with open(RUTA_CONSULTAS, "r", encoding="utf-8") as archivo_entrada, \
 
         query_id = consulta["id"]
         query = consulta["query"]
-
 
         # -----------------------------------------
         # 4. Realizar consulta en FAISS
