@@ -258,7 +258,6 @@ with open(RUTA_CONSULTAS, "r", encoding="utf-8") as archivo_entrada, \
         query_id = consulta["id"]
         query = consulta["query"]
 
-        print(f"Procesando {query_id}: {query}")
 
         # -----------------------------------------
         # 4. Realizar consulta en FAISS
