@@ -1,2 +1,4 @@
-*/base_vectorial
+*/base_vectorial/*
 venv
+entrega/base_vectorial/encoder_multilingual/index.faiss
+entrega/base_vectorial/encoder_multilingual/metadata.jsonl
